@@ -1,45 +1,67 @@
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 public class Fetch {
-    private static final String PDS_API_URL = "https://pds.nasa.gov/api/v1/";
+    private static final String PDS_API_URL = "https://pds.mcp.nasa.gov/api/search/1/properties";
     private static String TEST_API_URL = "https://jsonplaceholder.typicode.com/posts/1";
+    private static final String DALLE_API_URL = "https://api.openai.com/v1/images/generations";
+    private static final String GPT4_API_URL = "https://api.openai.com/v1/chat/completions";
 
     public static void main(String[] args) {
+        String apiKey = loadApiKey("src/main/java/config.properties");
+
+        String jsonBody = "{"
+                + "\"model\":\"gpt-3.5-turbo\","
+                + "\"messages\":["
+                + "    {\"role\":\"system\",\"content\":\"You are ChatGPT, an AI language model.\"},"
+                + "    {\"role\":\"user\",\"content\":\"Generate an image of a futuristic cityscape at sunset.\"}"
+                + "],"
+                + "\"max_tokens\":50"
+                + "}";
+
+        RequestBody body = RequestBody.create(
+                jsonBody, MediaType.parse("application/json"));
 
         OkHttpClient client = new OkHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        System.out.println("Attempting to connect to: " + TEST_API_URL);
-
+        // Build the request
         Request request = new Request.Builder()
-                .url(TEST_API_URL)
+                .url(GPT4_API_URL)
+                .header("Authorization", "Bearer " + apiKey)
+                .post(body)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-
-            if (response == null) {
-                System.out.println("Response is null");
-                return;
-            }
-
-            if (response.isSuccessful()) {
+            if (response != null && response.body() != null && response.isSuccessful()) {
                 String responseData = response.body().string();
-
-                // Parse JSON using Jackson
                 JsonNode jsonNode = objectMapper.readTree(responseData);
-                // Example: Print the first field
-                System.out.println("Parsed Data: " + jsonNode.toPrettyString());
+
+                // Print the response from GPT-4
+                System.out.println("GPT-4 Response: " + jsonNode.toPrettyString());
             } else {
-                System.out.println("Request failed: " + response.message());
+                String errorResponse = response.body() != null ? response.body().string() : "No response body";
+                System.out.println("Request failed: " + response.code() + " - " + errorResponse);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static String loadApiKey(String fileName) {
+        Properties properties = new Properties();
+        try (FileInputStream input = new FileInputStream(fileName)) {
+            properties.load(input);
+            return properties.getProperty("api_key");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
