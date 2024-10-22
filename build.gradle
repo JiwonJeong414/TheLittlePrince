@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'antlr' // Add this to enable ANTLR plugin
 }
 
 group = 'org.example'
@@ -10,8 +11,21 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.antlr:antlr4-runtime:4.13.0' // Use latest runtime
+    antlr 'org.antlr:antlr4:4.13.0' // ANTLR tool for generating parsers
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.14' // Adjust to the latest version if needed
+    implementation 'com.squareup.okio:okio:3.0.0' // Okio is required for OkHttp
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/gen'
+        }
+    }
 }
 
 test {
