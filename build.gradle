@@ -1,6 +1,18 @@
 plugins {
     id 'java'
     id 'antlr' // Add this to enable ANTLR plugin
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+
+javafx {
+    version = "21"
+    modules = [ 'javafx.controls', 'javafx.web' ]
+}
+
+application {
+    mainClassName = 'celestialInterface.celestial'
 }
 
 group = 'org.example'

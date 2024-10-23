@@ -1,7 +1,6 @@
 import okhttp3.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class Fetch {
                 + "\"model\":\"gpt-3.5-turbo\","
                 + "\"messages\":["
                 + "    {\"role\":\"system\",\"content\":\"You are ChatGPT, an AI language model.\"},"
-                + "    {\"role\":\"user\",\"content\":\"Generate an image of a futuristic cityscape at sunset.\"}"
+                + "    {\"role\":\"user\",\"content\":\"Tell me a story in the style of The Little Prince.\"}"
                 + "],"
                 + "\"max_tokens\":50"
                 + "}";
