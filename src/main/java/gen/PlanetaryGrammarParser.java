@@ -1,4 +1,4 @@
-// Generated from /Users/jiwonjeong/Documents/TheLittlePrince/src/main/java/PlanetaryGrammar.g4 by ANTLR 4.13.2
+package gen;// Generated from /Users/jiwonjeong/Documents/TheLittlePrince/src/main/java/PlanetaryGrammar.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -77,7 +77,7 @@ public class PlanetaryGrammarParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "PlanetaryGrammar.g4"; }
+	public String getGrammarFileName() { return "celestialGrammar/PlanetaryGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

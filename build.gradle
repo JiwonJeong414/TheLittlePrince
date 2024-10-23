@@ -32,13 +32,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/gen'
-        }
-    }
-}
 
 test {
     useJUnitPlatform()

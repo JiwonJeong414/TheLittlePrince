@@ -1,3 +1,7 @@
+package celestialGrammar;
+
+import gen.PlanetaryGrammarLexer;
+import gen.PlanetaryGrammarParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
