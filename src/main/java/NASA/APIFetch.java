@@ -36,24 +36,6 @@ public class APIFetch {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         JsonNode jsonNode = objectMapper.readTree(response.body());
-
-        // Log some example fields
-        if (jsonNode.isArray() && jsonNode.size() > 0) {
-            JsonNode firstResult = jsonNode.get(0);
-            System.out.println("Exoplanet Name: " + firstResult.get("pl_name").asText());
-            System.out.println("Orbital Period: " + firstResult.get("pl_orbper").asText());
-            System.out.println("Mass: " + firstResult.get("pl_bmasse").asText());
-        }
-
         return jsonNode;
-    }
-
-    public static void main(String[] args) {
-        try {
-            APIFetch apiFetch = new APIFetch();
-            apiFetch.getExoplanetData("HD 23472");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -16,7 +16,7 @@ public class AbstractPlanetTest {
     public void setUp() {
         // Initialize the planet objects before each test
         earth = new TerrestrialPlanet("Earth", 1.0, 1.0, 365.25, true, 9.81);
-        jupiter = new GasGiant("Jupiter", 317.8, 11.2, 4332.6, 0.89, 79);
+        jupiter = new GasGiant("Jupiter", 317.8, 11.2, 4332.6, 0.89);
         neptune = new IceGiant("Neptune", 17.1, 3.9, 60190, 2.0, true);
     }
 
@@ -67,9 +67,5 @@ public class AbstractPlanetTest {
         assertEquals("Methane Content: 2.0%, Has Rings: true", neptune.getSpecialCharacteristics());
     }
 
-    @Test
-    public void testGetNumberOfMoonsForGasGiant() {
-        assertEquals(79, jupiter.getNumberOfMoons());
-    }
 
 }

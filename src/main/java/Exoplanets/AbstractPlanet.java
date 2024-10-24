@@ -1,7 +1,7 @@
 package Exoplanets;
 
 // Abstract class for planets
-abstract class AbstractPlanet implements CelestialObject {
+public abstract class AbstractPlanet implements CelestialObject {
     private String name;
     private double mass;  // in Earth Masses
     private double radius;  // in Earth Radii
